@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
-
+import { createPortal } from "react-dom";
 interface ConfirmDeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -24,7 +24,14 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
 
-  return (
+  const modalRoot = document.getElementById("root");
+
+  if (!modalRoot) {
+    console.error('The element with ID "modal-root" was not found.');
+    return null; // Or handle the error differently
+  }
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -83,7 +90,8 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    modalRoot
   );
 };
 

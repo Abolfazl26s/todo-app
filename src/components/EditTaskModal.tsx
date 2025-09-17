@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import type { Task } from "../types";
-
+import { createPortal } from "react-dom";
 interface EditTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -17,6 +17,13 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
 }) => {
   const [title, setTitle] = useState(task.title);
   const [completed, setCompleted] = useState(task.completed);
+
+  const modalRoot = document.getElementById("root");
+
+  if (!modalRoot) {
+    console.error('The element with ID "modal-root" was not found.');
+    return null; // Or handle the error differently
+  }
 
   useEffect(() => {
     setTitle(task.title);
@@ -40,7 +47,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
     onClose();
   };
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -108,7 +115,8 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    modalRoot
   );
 };
 
