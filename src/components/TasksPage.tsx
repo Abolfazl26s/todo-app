@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import TodoList from "./TodoList";
 import ThemeToggle from "./ThemeToggle";
@@ -6,15 +6,14 @@ import type { Task } from "../types";
 
 type Filter = "all" | "completed";
 
+const getTodosFromLocalStorage = (): Task[] => {
+  const storedTodos = localStorage.getItem("todos");
+  return storedTodos ? JSON.parse(storedTodos) : [];
+};
+
 const TasksPage: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, title: "Redesign header", completed: false },
-    {
-      id: 2,
-      title: "Fix navbar bug",
-      completed: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>(() => getTodosFromLocalStorage());
+
   const [newTitle, setNewTitle] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
 
@@ -24,6 +23,10 @@ const TasksPage: React.FC = () => {
     if (filter === "completed") return tasks.filter((t) => t.completed);
     return tasks;
   }, [tasks, filter]);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleAdd = () => {
     const title = newTitle.trim();
