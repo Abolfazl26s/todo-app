@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import type { Task } from "../types";
 import EditTaskModal from "./EditTaskModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
@@ -10,7 +11,7 @@ interface TaskItemProps {
   onEditTask: (updatedTask: Task) => void;
 }
 
-const variants = {
+const variants: Variants = {
   initial: { opacity: 0, y: 10, scale: 0.98 },
   animate: {
     opacity: 1,
