@@ -40,22 +40,22 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 20, opacity: 0, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="w-full max-w-md rounded-2xl bg-white/85 backdrop-blur shadow-2xl ring-1 ring-black/5"
+            className="w-full max-w-md rounded-2xl bg-white/85 dark:bg-slate-800/90 backdrop-blur shadow-2xl ring-1 ring-black/5"
             role="dialog"
             aria-modal="true"
             aria-labelledby="confirm-delete-title"
           >
-            <div className="px-6 pt-5 pb-4 border-b rounded-t-2xl bg-gradient-to-r from-rose-50 to-red-50">
+            <div className="px-6 pt-5 pb-4 border-b border-gray-100 dark:border-slate-700 rounded-t-2xl bg-gradient-to-r from-rose-50 to-red-50 dark:from-rose-900/20 dark:to-red-900/20">
               <h2
                 id="confirm-delete-title"
-                className="text-lg font-semibold text-gray-800"
+                className="text-lg font-semibold text-gray-800 dark:text-slate-100"
               >
                 Delete task?
               </h2>
             </div>
 
             <div className="p-6">
-              <p className="text-sm text-gray-700">
+              <p className="text-sm text-gray-700 dark:text-slate-200">
                 Are you sure you want to delete
                 {title ? ` "${title}"` : " this task"}? This action cannot be
                 undone.
@@ -66,7 +66,7 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
               <button
                 ref={cancelRef}
                 onClick={onClose}
-                className="px-4 py-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50"
+                className="px-4 py-2 rounded-lg border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-700/50"
               >
                 Cancel
               </button>

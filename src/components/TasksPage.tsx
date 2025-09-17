@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import TodoList from "./TodoList";
+import ThemeToggle from "./ThemeToggle";
 import type { Task } from "../types";
 
 type Filter = "all" | "completed";
 
 const TasksPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([
-    // نمونه اولیه
     { id: 1, title: "Redesign header", completed: false },
     { id: 2, title: "Fix navbar bug", completed: true },
   ]);
@@ -24,11 +24,7 @@ const TasksPage: React.FC = () => {
   const handleAdd = () => {
     const title = newTitle.trim();
     if (!title) return;
-    const next: Task = {
-      id: Date.now(),
-      title,
-      completed: false,
-    };
+    const next: Task = { id: Date.now(), title, completed: false };
     setTasks((prev) => [next, ...prev]);
     setNewTitle("");
   };
@@ -42,26 +38,29 @@ const TasksPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-sky-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-sky-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       <div className="max-w-2xl mx-auto p-6">
         {/* Header */}
-        <div className="mb-6 rounded-2xl bg-white/60 backdrop-blur border border-white/60 shadow-sm p-5 flex items-center justify-between">
+        <div className="mb-6 rounded-2xl bg-white/60 dark:bg-slate-800/70 backdrop-blur border border-white/60 dark:border-slate-700 shadow-sm p-5 flex items-center justify-between">
           <div className="flex items-baseline gap-3">
-            <h1 className="text-2xl font-bold text-gray-800">My Tasks</h1>
-            <span className="text-sm text-gray-500">
+            <h1 className="text-2xl font-bold  text-gray-800 dark:text-slate-100">
+              My Tasks
+            </h1>
+            <span className="text-sm text-gray-500 dark:text-slate-400">
               {completedCount}/{tasks.length} completed
             </span>
           </div>
+          <ThemeToggle />
         </div>
 
         {/* Add box */}
-        <div className="mb-4 rounded-2xl bg-white border border-gray-100 shadow p-2 flex gap-2">
+        <div className="mb-4 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow p-2 flex gap-2">
           <input
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAdd()}
             placeholder="Add a new task..."
-            className="flex-1 px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-indigo-400"
+            className="flex-1 px-3 py-2 rounded-lg outline-none bg-white dark:bg-slate-800 text-gray-800 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-400 focus:ring-2 focus:ring-indigo-400"
           />
           <motion.button
             whileTap={{ scale: 0.97 }}
@@ -73,7 +72,7 @@ const TasksPage: React.FC = () => {
         </div>
 
         {/* Filter tabs */}
-        <div className="relative mb-4 inline-flex rounded-xl bg-gray-100 p-1">
+        <div className="relative mb-4 inline-flex rounded-xl bg-gray-100 dark:bg-slate-700 p-1">
           <Tab active={filter === "all"} onClick={() => setFilter("all")}>
             All
           </Tab>
@@ -85,7 +84,7 @@ const TasksPage: React.FC = () => {
           </Tab>
           <motion.div
             layout
-            className={`absolute top-1 bottom-1 rounded-lg bg-white shadow ${
+            className={`absolute top-1 bottom-1 rounded-lg bg-white dark:bg-slate-800 shadow ${
               filter === "all"
                 ? "left-1 right-[calc(50%-0.25rem)]"
                 : "left-[calc(50%+0.25rem)] right-1"
@@ -95,14 +94,14 @@ const TasksPage: React.FC = () => {
         </div>
 
         {/* List */}
-        <div className="rounded-2xl bg-white/70 backdrop-blur border border-white/60 shadow-sm p-3">
+        <div className="rounded-2xl bg-white/70 dark:bg-slate-800/70 backdrop-blur border border-white/60 dark:border-slate-700 shadow-sm p-3 mb-15">
           <TodoList
             list={filtered}
             onDeleteTask={handleDeleteTask}
             onEditTask={handleEditTask}
           />
           {filtered.length === 0 && (
-            <p className="text-center text-sm text-gray-500 py-6">
+            <p className="text-center text-sm text-gray-500 dark:text-slate-400 py-6">
               {filter === "completed"
                 ? "No completed tasks yet."
                 : "No tasks. Add your first one!"}
@@ -121,8 +120,10 @@ const Tab: React.FC<{
 }> = ({ active, onClick, children }) => (
   <button
     onClick={onClick}
-    className={`relative cursor-pointer z-2 px-4 py-2 rounded-lg text-sm transition ${
-      active ? "text-gray-900" : "text-gray-500 hover:text-gray-700"
+    className={`relative z-10 px-4 py-2 rounded-lg text-sm transition ${
+      active
+        ? "text-gray-900 dark:text-slate-100"
+        : "text-gray-500 dark:text-slate-300 hover:text-gray-700 dark:hover:text-slate-200"
     }`}
   >
     {children}
