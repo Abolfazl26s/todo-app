@@ -9,7 +9,11 @@ type Filter = "all" | "completed";
 const TasksPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, title: "Redesign header", completed: false },
-    { id: 2, title: "Fix navbar bug", completed: true },
+    {
+      id: 2,
+      title: "Fix navbar bug",
+      completed: false,
+    },
   ]);
   const [newTitle, setNewTitle] = useState("");
   const [filter, setFilter] = useState<Filter>("all");

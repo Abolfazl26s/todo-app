@@ -26,7 +26,17 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
   const handleSave = () => {
     const trimmed = title.trim();
     if (!trimmed) return;
-    onSave({ ...task, title: trimmed, completed });
+
+    const next: Task = {
+      ...task,
+      title: trimmed,
+      completed,
+      completedAt: completed
+        ? task.completedAt ?? new Date().toISOString() // اگر تازه کامل شد زمان رو ست کن
+        : undefined, // اگر ناتمام شد، پاکش کن
+    };
+
+    onSave(next);
     onClose();
   };
 
