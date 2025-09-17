@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/MyLogo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TODO-APP</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/index-Dex9TCEE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BYNMrTXD.css">
+</head>
+
+<body class="relative">
+  <div id="root"></div>
+  
+</body>
+
+</html>
