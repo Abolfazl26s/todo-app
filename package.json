@@ -1,6 +1,7 @@
 {
   "name": "todo-app",
   "private": true,
+  "homepage": "https://abolfazl26s.github.io/todo-app",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,14 +10,15 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.13",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
